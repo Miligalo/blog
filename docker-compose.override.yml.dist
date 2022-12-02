@@ -1,0 +1,5 @@
+version: '2'
+services:
+    lar_web:
+        ports:
+            - "47000:80"
