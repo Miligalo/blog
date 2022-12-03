@@ -14,4 +14,9 @@ class IndexController extends Controller
         return view('welcome', compact('freePosts', 'vipPosts'));
     }
 
+    public function showPost($post){
+        $post = Post::query()->where('id',$post)->first();
+        return view('main.post', compact('post'));
+    }
+
 }

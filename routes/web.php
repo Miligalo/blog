@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['namespace'=>'Main'], function(){
     Route::get('/', [\App\Http\Controllers\Main\IndexController::class, 'index']);
+    Route::get('/post/{id}',[\App\Http\Controllers\Main\IndexController::class, 'showPost']);
 });
 Route::group(['namespace'=>'Main','prefix' => 'admin'], function(){
     Route::get('/', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('admin.main.index');
@@ -26,5 +27,11 @@ Route::group(['namespace'=>'Main','prefix' => 'admin'], function(){
 
 
 Auth::routes();
+Route::group(['middleware' => 'auth'], function (){
+    Route::get('/stripe', [\App\Http\Controllers\Stripe\StripeController::class,'index']);
+    Route::post('/stripe/create-charge', [\App\Http\Controllers\Stripe\StripeController::class,'createCharge'])->name('stripe.create-charge');
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

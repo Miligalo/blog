@@ -7,7 +7,7 @@
     <div class="block-post">
         @foreach($freePosts as $freePost)
         <div class="post">
-            <h4><a href="/post/1">{{$freePost->title}}</a></h4>
+            <h4><a href="/post/{{$freePost->id}}">{{$freePost->title}}</a></h4>
             <img src="{{asset('storage/' . $freePost->image)}}"class="post-img">
         </div>
         @endforeach
@@ -23,7 +23,7 @@
         <div class="block-post">
             @foreach($vipPosts as $vip)
                 <div class="post">
-                    <h4><a href="/post/1">{{$vip->title}}</a></h4>
+                    <h4><a href="/post/{{$vip->id}}">{{$vip->title}}</a></h4>
                     <img src="{{asset('storage/' . $vip->image)}}"class="post-img">
                 </div>
             @endforeach

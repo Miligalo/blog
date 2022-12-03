@@ -54,3 +54,21 @@
 .item{
     margin-top: 20px;
 }
+.solo-post{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.solo-post h3{
+    text-align: center;
+}
+.solo-post img{
+    width: 550px;
+    height: 340px;
+    margin: auto;
+}
+.solo-post p{
+    margin: auto;
+    margin-top: 15px;
+
+}
