@@ -17,8 +17,10 @@
         <h2 class="page">Платные посты</h2>
         @if(!auth()->user())
             <h3>Чтоб смотреть такой контент нужно зарегистрироваться и оформить подписку</h3>
-        @elseif(auth()->user()->subscription == 'free')
+        @elseif(auth()->user()->subscription == null)
             <h3>Нужно оформить подписку</h3>
+        @elseif(auth()->user()->subscription < \Carbon\Carbon::now())
+            <h3>Нужно обновить подписку</h3>
         @else
         <div class="block-post">
             @foreach($vipPosts as $vip)
