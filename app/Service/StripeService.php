@@ -18,6 +18,7 @@ class StripeService
             "description" => "Payment Test"
         ]);
 
+
         $data = ['subscription' => Carbon::now()->addMonth()];
         User::query()->where('id', '=', auth()->user()->id)->update($data);
 

@@ -15,8 +15,6 @@
 <div class="main-crud">
 @include('admin.includes.sidebar')
     @yield('content')
-
-
 </div>
 </body>
 </html>

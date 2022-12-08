@@ -20,4 +20,8 @@ class IndexController extends Controller
         return view('main.post', compact('post'));
     }
 
+    public function vpnShow(){
+        return view('vpn.main');
+    }
+
 }
