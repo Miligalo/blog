@@ -4,13 +4,15 @@
     <div class="container-fluid">
         <div class="header">
             <h1 class="header-title">
-                Tables
+                add post
             </h1>
         </div>
         <div class="card">
-            <div class="right-content">
+            <div class="m-auto">
                 <div>
                     <h3>add post</h3>
+                </div>
+
                     <form action="{{route('admin.post.create')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <p>title</p>
@@ -31,7 +33,7 @@
                             <label>Изображение</label>
                             <input class="form-control" type="file" name="image">
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Добавить">
+                        <input type="submit" class="btn btn-primary m-3" value="Добавить">
                     </form>
                 </div>
             </div>

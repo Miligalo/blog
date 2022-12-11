@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Stripe\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +18,13 @@ Route::group(['namespace'=>'Main'], function(){
     Route::get('/', [\App\Http\Controllers\Main\IndexController::class, 'index']);
     Route::get('/post/{id}',[\App\Http\Controllers\Main\IndexController::class, 'showPost']);
     Route::get('/vpn', [\App\Http\Controllers\Main\IndexController::class, 'vpnShow']);
+
+    Route::middleware("auth")->group(function () {
+        Route::get('/plans', [\App\Http\Controllers\Stripe\PlanController::class, 'index']);
+        Route::get('/plans/{plan}', [\App\Http\Controllers\Stripe\PlanController::class, 'show'])->name("plans.show");
+        Route::post('/subscription', [\App\Http\Controllers\Stripe\PlanController::class, 'subscription'])->name("subscription.create");
+
+    });
 });
 Route::group(['namespace'=>'Main','prefix' => 'admin'], function(){
     Route::get('/login', [\App\Http\Controllers\Auth\AdminLoginController::class, 'login'])->name('admin.auth.login');
@@ -24,12 +33,12 @@ Route::group(['namespace'=>'Main','prefix' => 'admin'], function(){
 
 
     Route::group(['middleware' => ['auth:admin']], function () {
-        Route::get('/add', [\App\Http\Controllers\Admin\IndexController::class, 'createPostPage']);
-        Route::get('/', [\App\Http\Controllers\Admin\IndexController::class, 'index'])->name('admin.main.index');
-        Route::post('/',[\App\Http\Controllers\Admin\IndexController::class, 'createPost'])->name('admin.post.create');
-        Route::get('/{post}/edit',[\App\Http\Controllers\Admin\IndexController::class, 'editPostPage'])->name('admin.post.edit-post');
-        Route::post('/update/{post}',[\App\Http\Controllers\Admin\IndexController::class, 'updatePost'])->name('admin.post.update');
-        Route::post('/{post}',[\App\Http\Controllers\Admin\IndexController::class, 'deletePost'])->name('admin.post.delete');
+        Route::get('/add', [IndexController::class, 'createPostPage']);
+        Route::get('/', [IndexController::class, 'index'])->name('admin.main.index');
+        Route::post('/',[IndexController::class, 'createPost'])->name('admin.post.create');
+        Route::get('/{post}/edit',[IndexController::class, 'editPostPage'])->name('admin.post.edit-post');
+        Route::post('/update/{post}',[IndexController::class, 'updatePost'])->name('admin.post.update');
+        Route::post('/{post}',[IndexController::class, 'deletePost'])->name('admin.post.delete');
     });
 });
 
@@ -37,9 +46,9 @@ Route::group(['namespace'=>'Main','prefix' => 'admin'], function(){
 
 Auth::routes();
 Route::group(['middleware' => 'auth'], function (){
-    Route::get('/stripe', [\App\Http\Controllers\Stripe\StripeController::class,'index']);
-    Route::post('/stripe/create-charge', [\App\Http\Controllers\Stripe\StripeController::class,'createCharge'])->name('stripe.create-charge');
+    Route::get('/stripe', [StripeController::class,'index']);
+    Route::post('/stripe/create-charge', [StripeController::class,'createCharge'])->name('stripe.create-charge');
 });
-
+Route::post('/webhook', [StripeController::class, 'webhook']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e77f58932838cd021e0371b225185b4e",
+    "content-hash": "4935dab35948dd85d1a3b9d27dc06f38",
     "packages": [
         {
             "name": "brick/math",
@@ -965,16 +965,16 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v14.4.0",
+            "version": "v14.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier-stripe.git",
-                "reference": "2ca9025e43114bfca9fc5adc8033bfa333c4447b"
+                "reference": "282e1013b59c800c1e91f8e33abc167c6860f8d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/2ca9025e43114bfca9fc5adc8033bfa333c4447b",
-                "reference": "2ca9025e43114bfca9fc5adc8033bfa333c4447b",
+                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/282e1013b59c800c1e91f8e33abc167c6860f8d5",
+                "reference": "282e1013b59c800c1e91f8e33abc167c6860f8d5",
                 "shasum": ""
             },
             "require": {
@@ -985,6 +985,7 @@
                 "illuminate/http": "^9.21",
                 "illuminate/log": "^9.21",
                 "illuminate/notifications": "^9.21",
+                "illuminate/pagination": "^9.21",
                 "illuminate/routing": "^9.21",
                 "illuminate/support": "^9.21",
                 "illuminate/view": "^9.21",
@@ -1045,7 +1046,7 @@
                 "issues": "https://github.com/laravel/cashier/issues",
                 "source": "https://github.com/laravel/cashier"
             },
-            "time": "2022-11-29T16:19:21+00:00"
+            "time": "2022-12-06T14:27:22+00:00"
         },
         {
             "name": "laravel/framework",

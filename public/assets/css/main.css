@@ -42,14 +42,9 @@
     display: flex;
     margin: auto;
 }
-.left-content{
 
-    width: 15%;
-    text-align: center;
-}
 .right-content{
-    width: 85%;
-    margin-left: 50px;
+    margin: auto;
 }
 .item{
     margin-top: 20px;

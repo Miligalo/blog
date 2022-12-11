@@ -1,70 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>Subscribe to a cool new product</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <div class="card">
-                <div class="card-body">
-                    @if (session('success'))
-                        <div
-                            style="color: green;
-                                border: 2px green solid;
-                                text-align: center;
-                                padding: 5px;margin-bottom: 10px;">
-                            Payment Successful!
-                        </div>
-                    @endif
-                    <form id='checkout-form' method='post' action="{{url('/stripe/create-charge')}}">
-                        @csrf
-                        <input type='hidden' name='stripeToken' id='stripe-token-id'>
-                        <label for="card-element" class="mb-5">Checkout Forms</label>
-                        <br>
-                        <div id="card-element" class="form-control" ></div>
-                        <button
-                            id='pay-btn'
-                            class="btn btn-success mt-3"
-                            type="button"
-                            style="margin-top: 20px; width: 100%;padding: 7px;"
-                            onclick="createToken()">PAY $5
-                        </button>
-                        </form>
-                </div>
-            </div>
+<section>
+    <div class="product">
+        <div class="description">
+            <h3>Base plan</h3>
+            <h5>$5.00 / month</h5>
         </div>
     </div>
-</div>
-
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-    var stripe = Stripe('{{ env('STRIPE_KEY') }}')
-    var elements = stripe.elements();
-    var cardElement = elements.create('card');
-    cardElement.mount('#card-element');
-
-    function createToken() {
-        document.getElementById("pay-btn").disabled = true;
-        stripe.createToken(cardElement).then(function(result) {
-
-
-            if(typeof result.error != 'undefined') {
-                document.getElementById("pay-btn").disabled = false;
-                alert(result.error.message);
-            }
-
-            // creating token success
-            if(typeof result.token != 'undefined') {
-                document.getElementById("stripe-token-id").value = result.token.id;
-                document.getElementById('checkout-form').submit();
-            }
-        });
-    }
-</script>
+    <form action="{{route('stripe.create-charge')}}" method="POST">
+        @csrf
+        <!-- Add a hidden field with the lookup_key of your Price -->
+        <input type="hidden" name="lookup_key" value="{{env('PRICE_LOOKUP_KEY')}}" />
+        <button id="checkout-and-portal-button" type="submit">Checkout</button>
+    </form>
+</section>
 </body>
 </html>

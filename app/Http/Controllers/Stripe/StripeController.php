@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Service\StripeService;
 use Carbon\Carbon;
+use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Psy\CodeCleaner\UseStatementPass;
 use Stripe\Charge;
 use Stripe\Stripe;
@@ -23,9 +25,11 @@ class StripeController extends Controller
         return view('stripe.show');
     }
 
-    public function createCharge(Request $request)
+    public function createCharge()
     {
-        $this->stripeService->stripeCharge($request);
-        return redirect('stripe')->with('success', 'Payment Successful!');
+        return $this->stripeService->stripeCharge();
+    }
+    public function webhook(){
+        return $this->stripeService->webhook();
     }
 }
