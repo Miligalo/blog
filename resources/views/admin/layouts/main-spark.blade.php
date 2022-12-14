@@ -24,7 +24,8 @@
         }
     </style>
     <script src="{{asset('assets/js/settings.js')}}"></script>
-{{--    <link href="{{asset('assets/css/modern.css')}}" type="text/css" rel="stylesheet">--}}
+
+    {{--    <link href="{{asset('assets/css/modern.css')}}" type="text/css" rel="stylesheet">--}}
     <!-- END SETTINGS -->
 </head>
 <body>
@@ -52,6 +53,16 @@
             </symbol>
         </defs>
     </svg>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="{{asset('assets/js/app.js')}}"></script>
+    <script>
+        function addImage(e){
+            let code = `<input class="form-control" type="file" name="images[]" multiple>`;
+            $(e.target).parent().append(code)
+        }
+        $(document).on('click','.add-img',function (e){
+            addImage(e);
+        });
+    </script>
 </body>
 </html>

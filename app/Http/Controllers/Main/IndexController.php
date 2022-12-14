@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
+use App\Models\ImgPost;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,8 +18,9 @@ class IndexController extends Controller
     }
 
     public function showPost($post){
-        $post = Post::query()->where('id',$post)->first();
-        return view('main.post', compact('post'));
+        $post = Post::find($post);
+        $comments = Comment::query()->where('post_id', '=', $post->id)->get();
+        return view('main.post', compact('post', 'comments'));
     }
 
     public function vpnShow(){

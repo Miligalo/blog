@@ -10,10 +10,10 @@
             <li class="sidebar-header">
                 Admin
             </li>
-            <a href="/admin"  class="sidebar-link collapsed">
+            <a href="{{route('admin.main.index')}}"  class="sidebar-link collapsed">
                 <i class="align-middle me-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboards</span>
             </a>
-            <a href="/admin/add"  class="sidebar-link collapsed">
+            <a href="{{route('admin.post.create')}}"  class="sidebar-link collapsed">
                 <i class="align-middle me-2 fas fa-fw fa-pen"></i> <span class="align-middle">Add Post</span>
             </a>
     </div>

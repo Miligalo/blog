@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\ImgPost;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
@@ -19,6 +20,9 @@ class PostRepository
 
    public function createPost($data){
       return Post::firstOrCreate($data);
+   }
+   public function createImage($img){
+       return ImgPost::firstOrCreate($img);
    }
 
    public function deletePost($post){

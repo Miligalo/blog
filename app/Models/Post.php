@@ -11,4 +11,11 @@ class Post extends Model
 
     protected $table = 'posts';
     protected $guarded = false;
+
+    public function img(){
+        return $this->hasMany(ImgPost::class);
+    }
+    public function mainImg(){
+        return $this->img()->where('main_img', '=', true)->first();
+    }
 }

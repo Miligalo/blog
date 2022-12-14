@@ -8,7 +8,7 @@
         @foreach($freePosts as $freePost)
         <div class="post">
             <h4><a href="/post/{{$freePost->id}}">{{$freePost->title}}</a></h4>
-            <img src="{{asset('storage/' . $freePost->image)}}"class="post-img">
+            <img src="{{asset('storage/' . $freePost->mainImg()->image)}}"class="post-img">
         </div>
         @endforeach
 

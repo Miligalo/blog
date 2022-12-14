@@ -24,8 +24,19 @@ class PostService
 
     public function createPost($request){
         $data = $request->validated();
-        $data['image'] = Storage::disk('public')->put('/images', $data['image']);
-        $this->postRepository->createPost($data);
+        $post = $data;
+        unset($post['images'],$post['main_img']);
+        $post['admin_id'] = auth()->user()->id;
+        $createPost = $this->postRepository->createPost($post);
+        $mainImage = ['main_img' => true, 'image' => $data['main_img'], 'post_id' => $createPost->id];
+        $mainImage['image'] = Storage::disk('public')->put('/images', $mainImage['image']);
+        $this->postRepository->createImage($mainImage);
+        $images = $data['images'];
+        foreach ($images as $image){
+            $img = ['image' => $image, 'post_id' => $createPost->id];
+            $img['image'] = Storage::disk('public')->put('/images', $img['image']);
+            $this->postRepository->createImage($img);
+        }
         return redirect()->route('admin.main.index');
     }
 

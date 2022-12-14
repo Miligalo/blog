@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Auth\AdminLoginController;
+use App\Http\Controllers\Main\CommentController;
+use App\Http\Controllers\Main\IndexController;
 use App\Http\Controllers\Stripe\StripeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,30 +18,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['namespace'=>'Main'], function(){
-    Route::get('/', [\App\Http\Controllers\Main\IndexController::class, 'index']);
-    Route::get('/post/{id}',[\App\Http\Controllers\Main\IndexController::class, 'showPost']);
-    Route::get('/vpn', [\App\Http\Controllers\Main\IndexController::class, 'vpnShow']);
-
-    Route::middleware("auth")->group(function () {
-        Route::get('/plans', [\App\Http\Controllers\Stripe\PlanController::class, 'index']);
-        Route::get('/plans/{plan}', [\App\Http\Controllers\Stripe\PlanController::class, 'show'])->name("plans.show");
-        Route::post('/subscription', [\App\Http\Controllers\Stripe\PlanController::class, 'subscription'])->name("subscription.create");
-
-    });
+    Route::get('/', [IndexController::class, 'index']);
+    Route::get('/post/{id}',[IndexController::class, 'showPost']);
+    Route::get('/vpn', [IndexController::class, 'vpnShow']);
+    Route::post('/', [CommentController::class, 'store'])->name('store.comment');
 });
 Route::group(['namespace'=>'Main','prefix' => 'admin'], function(){
-    Route::get('/login', [\App\Http\Controllers\Auth\AdminLoginController::class, 'login'])->name('admin.auth.login');
-    Route::post('/login', [\App\Http\Controllers\Auth\AdminLoginController::class, 'loginAdmin'])->name('admin.auth.loginAdmin');
-    Route::post('/logout', [\App\Http\Controllers\Auth\AdminLoginController::class, 'logout'])->name('admin.auth.logout');
+    Route::get('/login', [AdminLoginController::class, 'login'])->name('admin.auth.login');
+    Route::post('/login', [AdminLoginController::class, 'loginAdmin'])->name('admin.auth.loginAdmin');
+    Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.auth.logout');
 
 
     Route::group(['middleware' => ['auth:admin']], function () {
-        Route::get('/add', [IndexController::class, 'createPostPage']);
-        Route::get('/', [IndexController::class, 'index'])->name('admin.main.index');
-        Route::post('/',[IndexController::class, 'createPost'])->name('admin.post.create');
-        Route::get('/{post}/edit',[IndexController::class, 'editPostPage'])->name('admin.post.edit-post');
-        Route::post('/update/{post}',[IndexController::class, 'updatePost'])->name('admin.post.update');
-        Route::post('/{post}',[IndexController::class, 'deletePost'])->name('admin.post.delete');
+        Route::get('/posts/create', [PostController::class, 'create'])->name('admin.post.create');
+        Route::get('/posts', [PostController::class, 'index'])->name('admin.main.index');
+        Route::post('/posts',[PostController::class, 'store'])->name('admin.post.store');
+        Route::get('/{post}/edit',[PostController::class, 'edit'])->name('admin.post.edit-post');
+        Route::post('/update/{post}',[PostController::class, 'update'])->name('admin.post.update');
+        Route::post('/{post}',[PostController::class, 'destroy'])->name('admin.post.delete');
     });
 });
 

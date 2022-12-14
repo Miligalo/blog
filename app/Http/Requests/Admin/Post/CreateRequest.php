@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Admin\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Foundation\Validation\ValidatesRequests;
 class CreateRequest extends FormRequest
 {
     /**
@@ -27,7 +27,11 @@ class CreateRequest extends FormRequest
             'title' => 'required|string',
             'content' => 'required|string',
             'private' => 'required|string',
-            'image' => 'required|file',
+            'main_img' => 'required|file',
+            'images' => 'array',
+            'admin_id' => 'integer',
         ];
     }
+
+
 }
