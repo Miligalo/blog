@@ -23,9 +23,17 @@
                         <p>private</p>
                         <p><input type="text" name="private" value="{{$post->private}}"></p>
                         <div class="form-group">
-                            <label>Изображение</label>
-                            <input class="form-control" type="file" name="image">
+                            <label>Основное изображение</label>
+                            <input class="form-control" type="file" name="main_img">
                         </div>
+                        <div class="form-group">
+                            <label>изображения</label>
+                            <div id="img" >
+                                <input class="btn btn-primary m-3 add-img" value="Добавить картинку" type="button">
+                                <input class="form-control" type="file" name="images[]" multiple>
+                                <input class="form-control" type="file" name="images[]" multiple>
+
+                            </div>
                         <input type="submit" class="btn btn-primary m-3" value="Edit">
                     </form>
                 </div>

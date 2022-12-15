@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Post\CreateRequest;
 use App\Http\Requests\Admin\Post\UpdateRequest;
+use App\Models\ImgPost;
 use App\Models\Post;
 use App\Service\PostService;
 use Illuminate\Http\Request;
@@ -36,8 +37,8 @@ class PostController extends Controller
         return $this->postService->editPostPage($post);
     }
 
-    public function update(Post $post, UpdateRequest $request){
-        return $this->postService->updatePost($post, $request);
+    public function update(Post $post, UpdateRequest $request, ImgPost $img){
+        return $this->postService->updatePost($post, $request, $img);
     }
 
 

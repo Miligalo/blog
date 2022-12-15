@@ -25,6 +25,10 @@ class PostRepository
        return ImgPost::firstOrCreate($img);
    }
 
+   public function updateImage($img,$data){
+       return $img->update($data);
+   }
+
    public function deletePost($post){
        return $post->delete();
    }

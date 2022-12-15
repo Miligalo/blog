@@ -27,7 +27,9 @@ class UpdateRequest extends FormRequest
             'title' => 'nullable|string',
             'content' => 'nullable|string',
             'private' => 'nullable|string',
-            'image' => 'nullable|file',
+            'main_img' => 'nullable|file',
+            'images' => 'array',
+            'admin_id' => 'integer',
         ];
     }
 }
