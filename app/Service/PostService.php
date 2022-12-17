@@ -31,15 +31,14 @@ class PostService
         $mainImage = ['main_img' => true, 'image' => $data['main_img'], 'post_id' => $createPost->id];
         $mainImage['image'] = Storage::disk('public')->put('/images', $mainImage['image']);
         $this->postRepository->createImage($mainImage);
-        if (array_key_exists('images', $data)){
+        if (array_key_exists('images', $data)) {
           $images = $data['images'];
-        foreach ($images as $image){
-            $img = ['image' => $image, 'post_id' => $createPost->id];
-            $img['image'] = Storage::disk('public')->put('/images', $img['image']);
-            $this->postRepository->createImage($img);
+            foreach ($images as $image){
+                $img = ['image' => $image, 'post_id' => $createPost->id];
+                $img['image'] = Storage::disk('public')->put('/images', $img['image']);
+                $this->postRepository->createImage($img);
+            }
         }
-        }
-
         return redirect()->route('admin.main.index');
     }
 
@@ -52,25 +51,18 @@ class PostService
         return view('admin.main.edit-post',compact('post'));
     }
 
-    public function updatePost($post,$request,$image){
+    public function updatePost($post,$request){
+        $image = $post->img()->where('main_img', 1)->first();
         $data = $request->validated();
         $data = array_diff($data, array('', NULL, false));
         $newPost = $data;
         unset($newPost ['images'],$newPost ['main_img']);
-        $newPost['admin_id'] = auth()->user()->id;
         $createPost = $this->postRepository->updatePost($post, $newPost);
         if (array_key_exists('main_img', $data)){
             $mainImage = ['main_img' => true, 'image' => $data['main_img'], 'post_id' => $post->id];
             $mainImage['image'] = Storage::disk('public')->put('/images', $mainImage['image']);
+
             $this->postRepository->updateImage($image,$mainImage);
-        }
-        if (array_key_exists('images', $data)){
-            $images = $data['images'];
-            foreach ($images as $image){
-                $img = ['image' => $image, 'post_id' => $createPost->id];
-                $img['image'] = Storage::disk('public')->put('/images', $img['image']);
-                $this->postRepository->updateImage($image,$img);
-            }
         }
         return redirect('admin/posts');
     }

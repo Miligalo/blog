@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Main\CommentController;
@@ -35,8 +36,13 @@ Route::group(['namespace'=>'Main','prefix' => 'admin'], function(){
         Route::post('/posts',[PostController::class, 'store'])->name('admin.post.store');
         Route::get('/{post}/edit',[PostController::class, 'edit'])->name('admin.post.edit-post');
         Route::post('/update/{post}',[PostController::class, 'update'])->name('admin.post.update');
-        Route::post('/{post}',[PostController::class, 'destroy'])->name('admin.post.delete');
+        Route::delete('/{post}',[PostController::class, 'destroy'])->name('admin.post.delete');
+
+        Route::get('/coupons', [CouponController::class, 'index'])->name('admin.coupon.index');
+        Route::get('/coupons/add', [CouponController::class, 'create'])->name('admin.coupon.create');
+        Route::post('/coupons', [CouponController::class, 'store'])->name('admin.coupon.store');
     });
+
 });
 
 

@@ -13,8 +13,14 @@
             <a href="{{route('admin.main.index')}}"  class="sidebar-link collapsed">
                 <i class="align-middle me-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboards</span>
             </a>
+            <a href="{{route('admin.coupon.index')}}"  class="sidebar-link collapsed">
+                <i class="align-middle me-2 fas fa-fw fa-pen"></i> <span class="align-middle">Watch coupon</span>
+            </a>
             <a href="{{route('admin.post.create')}}"  class="sidebar-link collapsed">
                 <i class="align-middle me-2 fas fa-fw fa-pen"></i> <span class="align-middle">Add Post</span>
+            </a>
+            <a href="{{route('admin.coupon.create')}}"  class="sidebar-link collapsed">
+                <i class="align-middle me-2 fas fa-fw fa-pen"></i> <span class="align-middle">Add Coupon</span>
             </a>
     </div>
 </nav>

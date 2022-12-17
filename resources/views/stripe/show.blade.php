@@ -21,5 +21,6 @@
         <button id="checkout-and-portal-button" type="submit">Checkout</button>
     </form>
 </section>
+
 </body>
 </html>

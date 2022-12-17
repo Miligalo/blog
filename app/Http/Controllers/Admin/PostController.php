@@ -37,10 +37,7 @@ class PostController extends Controller
         return $this->postService->editPostPage($post);
     }
 
-    public function update(Post $post, UpdateRequest $request, ImgPost $img){
-        return $this->postService->updatePost($post, $request, $img);
+    public function update(Post $post, UpdateRequest $request){
+        return $this->postService->updatePost($post, $request);
     }
-
-
-
 }

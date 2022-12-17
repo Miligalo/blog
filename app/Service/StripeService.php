@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Stripe\Charge;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
@@ -17,17 +18,18 @@ class StripeService
 
             $session = \Stripe\Checkout\Session::create([
                 'line_items' => [[
-                    'price' => 'price_1MDEChG5OSCRQdIzr4670arQ',
+                    'price' => 'price_1MG83NG5OSCRQdIznJB3pDno',
                     'quantity' => 1,
                 ]],
                 'mode' => 'subscription',
                 'success_url' => 'http://localhost:47000/',
                 'cancel_url' => 'http://localhost:47000/',
                 'client_reference_id' => auth()->user()->id,
+                'allow_promotion_codes' => true,
             ]);
             return redirect($session->url);
         } catch (\Throwable $e) {
-            dd($e->getMessage());
+            Log::error($e->getMessage());
         }
     }
 

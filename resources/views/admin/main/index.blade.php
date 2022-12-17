@@ -30,6 +30,7 @@
                                     <a href="{{route('admin.post.edit-post',$post->id)}}"><i class="align-middle fas fa-fw fa-pen"></i></a>
                                 </td>
                                 <td><form action="{{route('admin.post.delete',$post->id)}}" method="POST">
+                                        @method('DELETE')
                                         @csrf
                                         <button type="submit" class="border-0 bg-white">
                                             <i class="fas fa-trash text-danger" role="button"></i>
